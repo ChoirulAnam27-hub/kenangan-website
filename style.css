@@ -122,10 +122,31 @@ body.dark-mode #navbar {
 .hero-img {
     width: 150px;
     height: 150px;
-    border-radius: 50%;
     object-fit: cover;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    /* Kode ajaib untuk membuat bentuk Hati (Love) */
+    clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
+    /* Agar bentuk hatinya pas di tengah kotak 150px */
+    transform: scale(6.5); /* Perbesar bentuk hati karena path aslinya kecil */
+    transform-origin: center center;
+
     animation: zoomIn 3s ease-in-out;
+    /* Hapus border-radius: 50% jika sebelumnya ada */
+}
+
+/* Tambahan agar animasi zoom tidak merusak posisi love */
+.hero-img.left, .hero-img.right {
+   /* Kita timpa animasi zoomIn bawaan agar tidak bentrok dengan scale(6.5) */
+   animation: none; 
+}
+/* Kita buat animasi detak jantung sederhana sebagai gantinya */
+@keyframes heartbeat {
+  0% { transform: scale(6.5); }
+  50% { transform: scale(7); }
+  100% { transform: scale(6.5); }
+}
+
+.hero-images:hover .hero-img {
+    animation: heartbeat 1.5s infinite;
 }
 
 .hero-img.left {
@@ -570,3 +591,4 @@ body.dark-mode .modal-content {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 }
+
